@@ -1,7 +1,7 @@
 <template>
     <div class="container-albums">
         <ul>
-            <li v-for="(album, i) in albums" :key="i">
+            <li v-for="(album, i) in filterAlbums" :key="i">
                 <AalbumCard :album="album"></AalbumCard>
             </li>
         </ul>
@@ -11,12 +11,14 @@
 <script>
 import axios from 'axios';
 import AalbumCard from '../Atoms/AalbumCard.vue';
+import data from '../../shared/data.js'
 
 export default {
     name: "McontainerAlbum",
     data() {
         return {
-            albums: []
+            albums: [],
+            data
         };
     },
     created() {
@@ -24,6 +26,15 @@ export default {
             .then((reply) => {
             this.albums = reply.data.response;
         });
+    },
+    computed: {
+        filterAlbums() {
+            if (data.filterValue == '') {
+                return this.albums
+            } else {
+                return this.albums.filter(albums => albums.genre.toLowerCase() == data.filterValue.toLowerCase());
+            }
+        }
     },
     components: { AalbumCard }
 }

@@ -2,8 +2,10 @@
   <div class="album">
       <img :src="album.poster" alt="">
       <h4>{{album.title}}</h4>
+      <div class="info">
           <h5 class="author">{{album.author}}</h5>
           <h5 class="date">{{album.year}}</h5>
+      </div>
   </div>
 </template>
 
